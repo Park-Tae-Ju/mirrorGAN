@@ -121,6 +121,7 @@ class TextDataset(data.Dataset):
     def load_bbox(self):
         data_dir = self.data_dir
         bbox_path = os.path.join(data_dir, 'CUB_200_2011/bounding_boxes.txt')
+        abspath = os.path.abspath(bbox_path)
         df_bounding_boxes = pd.read_csv(bbox_path,
                                         delim_whitespace=True,
                                         header=None).astype(int)

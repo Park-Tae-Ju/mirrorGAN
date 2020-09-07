@@ -188,6 +188,7 @@ def generator_loss(netsD, image_encoder, caption_cnn, caption_rnn, captions, fak
 
         logs += 'g_loss%d: %.2f ' % (i, g_loss.data[0])
 
+        # TODO: STREAM
         if i == (numDs - 1):
             fakeimg_feature = caption_cnn(fake_imgs[i])
             captions.cuda()

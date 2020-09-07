@@ -14,7 +14,7 @@ __C.DATASET_NAME = 'birds'
 __C.CONFIG_NAME = ''
 __C.DATA_DIR = ''
 __C.GPU_ID = 0
-__C.CUDA = True
+__C.CUDA = False
 __C.WORKERS = 6
 __C.OUTPUT_PATH = ''
 __C.RNN_TYPE = 'LSTM'   # 'GRU'
@@ -81,9 +81,9 @@ def _merge_a_into_b(a, b):
     if type(a) is not edict:
         return
 
-    for k, v in a.iteritems():
+    for k, v in a.items():
         # a must specify keys that are in b
-        if not b.has_key(k):
+        if k not in b:
             raise KeyError('{} is not a valid config key'.format(k))
 
         # the types must match, too

@@ -248,11 +248,14 @@ class Trainer(object):
                 data = data_iter.next()
                 imgs, captions, cap_lens, class_ids, keys = prepare_data(data)
 
+                # TODO: STEM 부분
                 hidden = text_encoder.init_hidden(batch_size)
                 # words_embs: batch_size x nef x seq_len
                 # sent_emb: batch_size x nef
+                # TODO: cp_lens : 아마 L(문장 길이)
                 words_embs, sent_emb = text_encoder(captions, cap_lens, hidden)
                 words_embs, sent_emb = words_embs.detach(), sent_emb.detach()
+
                 mask = (captions == 0)
                 num_words = words_embs.size(2)
                 if mask.size(1) > num_words:
@@ -260,9 +263,11 @@ class Trainer(object):
 
                 # (2) Generate fake images
                 noise.data.normal_(0, 1)
+                # F function
                 fake_imgs, _, mu, logvar = netG(noise, sent_emb, words_embs, mask)
 
                 # (3) Update D network
+                # TODO: Generator 학습용 D
                 errD_total = 0
                 D_logs = ''
                 for i in range(len(netsD)):
@@ -276,6 +281,7 @@ class Trainer(object):
                     D_logs += 'errD%d: %.2f ' % (i, errD.data[0])
 
                 # (4) Update G network: maximize log(D(G(z)))
+                # STREAM
                 # compute total loss for training G
                 step += 1
                 gen_iterations += 1
