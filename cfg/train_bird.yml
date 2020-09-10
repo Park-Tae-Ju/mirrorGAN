@@ -1,7 +1,7 @@
 CONFIG_NAME: 'MirrorGAN'
 DATASET_NAME: 'birds'
 DATA_DIR: '../data/birds'
-GPU_ID: 3
+GPU_ID: 0
 WORKERS: 4
 OUTPUT_PATH: '../data/output'
 TREE:
@@ -30,8 +30,8 @@ CAP:
     hidden_size: 256
     num_layers: 1
     learning_rate: 0.001
-    caption_cnn_path: '../data/STREAM/cnn_encoder.ckpt'
-    caption_rnn_path: '../data/STREAM/rnn_decoder.ckpt'
+    caption_cnn_path: 'data/STREAM/cnn_encoder.ckpt'
+    caption_rnn_path: 'data/STREAM/rnn_decoder.ckpt'
 
 GAN:
     DF_DIM: 64
