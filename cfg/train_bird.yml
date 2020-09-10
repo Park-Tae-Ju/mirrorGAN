@@ -3,7 +3,7 @@ DATASET_NAME: 'birds'
 DATA_DIR: '../data/birds'
 GPU_ID: 3
 WORKERS: 4
-OUTPUT_PATH: '/data/qtt/MirrorGAN/'
+OUTPUT_PATH: '../data/output'
 TREE:
     BRANCH_NUM: 3
 
@@ -17,7 +17,7 @@ TRAIN:
     DISCRIMINATOR_LR: 0.0002
     GENERATOR_LR: 0.0002
 
-    NET_E: '../data/STEM/text_encoder.pth'
+    NET_E: 'data/STEM/text_encoder.pth'
     SMOOTH:
         GAMMA1: 4.0  # 1,2,5 good 4 best  10&100bad
         GAMMA2: 5.0

@@ -28,7 +28,7 @@ class Trainer(object):
             mkdir_p(self.model_dir)
             mkdir_p(self.image_dir)
 
-        torch.cuda.set_device(cfg.GPU_ID)
+        # torch.cuda.set_device(cfg.GPU_ID)
         cudnn.benchmark = True
 
         self.batch_size = cfg.TRAIN.BATCH_SIZE
@@ -46,6 +46,7 @@ class Trainer(object):
             print('Error: no pretrained text-image encoders')
             return
 
+        # TODO: GLAM
         image_encoder = CNN_ENCODER(cfg.TEXT.EMBEDDING_DIM)
         img_encoder_path = cfg.TRAIN.NET_E.replace('text_encoder', 'image_encoder')
         state_dict = \
@@ -56,6 +57,7 @@ class Trainer(object):
         print('Load image encoder from:', img_encoder_path)
         image_encoder.eval()
 
+        # TODO: STEM
         text_encoder = \
             RNN_ENCODER(self.n_words, nhidden=cfg.TEXT.EMBEDDING_DIM)
         state_dict = \
@@ -67,6 +69,7 @@ class Trainer(object):
         print('Load text encoder from:', cfg.TRAIN.NET_E)
         text_encoder.eval()
 
+        # TODO: STREAM
         # Caption models - cnn_encoder and rnn_decoder
         caption_cnn = CAPTION_CNN(cfg.CAP.embed_size)
         caption_cnn.load_state_dict(torch.load(cfg.CAP.caption_cnn_path, map_location=lambda storage, loc: storage))
@@ -281,7 +284,7 @@ class Trainer(object):
                     D_logs += 'errD%d: %.2f ' % (i, errD.data[0])
 
                 # (4) Update G network: maximize log(D(G(z)))
-                # STREAM
+                # TODO: STREAM
                 # compute total loss for training G
                 step += 1
                 gen_iterations += 1

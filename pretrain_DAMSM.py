@@ -174,7 +174,7 @@ def build_models():
         text_encoder.load_state_dict(state_dict)
         print('Load ', cfg.TRAIN.NET_E)
         #
-        name = cfg.TRAIN.NET_E.replace('text_encoder', 'image_encoder')
+        name = cfg.TRAIN.NET_E.replace('text_encoder', 'image_encoder.pth')
         state_dict = torch.load(name)
         image_encoder.load_state_dict(state_dict)
         print('Load ', name)
@@ -286,7 +286,7 @@ if __name__ == "__main__":
             if (epoch % cfg.TRAIN.SNAPSHOT_INTERVAL == 0 or
                 epoch == cfg.TRAIN.MAX_EPOCH):
                 torch.save(image_encoder.state_dict(),
-                           '%s/image_encoder%d.pth' % (model_dir, epoch))
+                           '%s/image_encoder.pth%d.pth' % (model_dir, epoch))
                 torch.save(text_encoder.state_dict(),
                            '%s/text_encoder%d.pth' % (model_dir, epoch))
                 print('Save G/Ds models.')
