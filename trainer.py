@@ -289,6 +289,7 @@ class Trainer(object):
                 step += 1
                 gen_iterations += 1
                 netG.zero_grad()
+                print('shape: ', fake_imgs[0].shape)
                 errG_total, G_logs = \
                     generator_loss(netsD, image_encoder, caption_cnn, caption_rnn, captions, fake_imgs, real_labels,
                                    words_embs, sent_emb, match_labels, cap_lens, class_ids)

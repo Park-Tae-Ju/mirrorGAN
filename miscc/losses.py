@@ -198,6 +198,7 @@ def generator_loss(netsD, image_encoder, caption_cnn, caption_rnn, captions, fak
 
             errG_total += cap_loss
             logs += 'cap_loss: %.2f, ' % cap_loss
+            logs += 'shape: {}, '.format(fake_imgs[i].shape)
     return errG_total, logs
 
 

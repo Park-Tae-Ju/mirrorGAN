@@ -6,3 +6,6 @@ data/
 
 # python
 venv/
+
+# secret
+database_properties.json
