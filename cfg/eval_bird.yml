@@ -24,3 +24,12 @@ TEXT:
     EMBEDDING_DIM: 256
     CAPTIONS_PER_IMAGE: 10
     WORDS_NUM: 25
+
+######
+CAP:
+    embed_size: 256
+    hidden_size: 256
+    num_layers: 1
+    learning_rate: 0.001
+    caption_cnn_path: 'data/STREAM/cnn_encoder.ckpt'
+    caption_rnn_path: 'data/STREAM/rnn_decoder.ckpt'

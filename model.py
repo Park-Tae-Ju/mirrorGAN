@@ -683,6 +683,8 @@ class D_NET256(nn.Module):
         x_code4 = self.img_code_s64_1(x_code4)
         x_code4 = self.img_code_s64_2(x_code4)
         return x_code4
+
+
 class CAPTION_CNN(nn.Module):
     def __init__(self, embed_size):
         """Load the pretrained ResNet-152 and replace top fc layer."""
@@ -695,15 +697,19 @@ class CAPTION_CNN(nn.Module):
         self.linear = nn.Linear(resnet.fc.in_features, embed_size)
         self.bn = nn.BatchNorm1d(embed_size, momentum=0.01)
 
-    def forward(self, images):
+    def forward(self, images, subset='train'):
         """Extract feature vectors from input images."""
         #print ('image feature size before unsample:', images.size())
+        if subset not in ['train', 'test']:
+            raise ValueError('Invaild argument: subset\'{}\' is not invaild. Please input subset \'train\' or \'test\''.format(subset))
         m = nn.Upsample(size=(224, 224), mode='bilinear')
         unsampled_images = m(images)
         #print ('image feature size after unsample:', unsampled_images.size())
         features = self.resnet(unsampled_images)
         features = features.view(features.size(0), -1)
-        features = self.bn(self.linear(features))
+        features = self.linear(features)
+        if subset == 'train':
+            features = self.bn(features)
         return features
 
 class CAPTION_RNN(nn.Module):
